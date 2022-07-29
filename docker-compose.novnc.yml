@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  novnc:
+    image: theasp/novnc:latest
+    container_name: novnc
+    environment:
+        # Adjust to your screen size
+        - DISPLAY_WIDTH=1600
+        - DISPLAY_HEIGHT=968
+        - RUN_XTERM=no
+    ports:
+        - "8080:8080"
+    restart: unless-stopped
+
+  rviz:
+    container_name: rviz
+    build: ./build-rviz
+    depends_on:
+     - novnc
+    environment:
+      # For ros master on reconcycle-dev2:
+      - ROS_MASTER_URI=http://10.20.0.1:11311
+      - ROS_IP=10.20.0.2 # $ hostname -I
+      - DISPLAY=novnc:0.0
+    command: stdbuf -o L rosrun rviz rviz
+    restart: unless-stopped

@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  rviz:
+    container_name: rviz
+    # on a computer with nvidia you must use gpu
+    # 
+    # docker-compose build --build-arg 'TARGET=gpu'
+    # or:
+    # docker-compose build --build-arg 'TARGET=cpu'
+    build:
+      context: ./build-rviz
+      args: 
+        TARGET: gpu # cpu or gpu
+
+    environment:
+      # For ros master on reconcycle-dev2:
+      - ROS_MASTER_URI=http://10.20.0.1:11311
+      - ROS_IP=10.20.0.2 # $ hostname -I
+      - "DISPLAY=$DISPLAY"
+      # on a computer with nvidia:
+      - NVIDIA_VISIBLE_DEVICES=0
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix" # for using local xserver
+    command: stdbuf -o L rosrun rviz rviz
+    restart: unless-stopped
