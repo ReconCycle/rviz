@@ -9,7 +9,7 @@ services:
     # or:
     # docker-compose build --build-arg 'TARGET=cpu'
     build:
-      context: ./build-rviz
+      context: ./build
       args: 
         TARGET: gpu # cpu or gpu
 

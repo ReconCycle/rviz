@@ -15,7 +15,7 @@ services:
 
   rviz:
     container_name: rviz
-    build: ./build-rviz
+    build: ./build
     depends_on:
      - novnc
     environment:
