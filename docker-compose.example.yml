@@ -23,5 +23,7 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix" # for using local xserver
+    devices:
+      - /dev/dri:/dev/dri
     command: stdbuf -o L rosrun rviz rviz
     restart: unless-stopped

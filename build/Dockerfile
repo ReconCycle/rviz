@@ -68,6 +68,8 @@ RUN apt update --fix-missing && apt install --no-install-recommends -y \
     qtchooser \
     qt5-qmake \
     qtbase5-dev-tools \
+    libgl1-mesa-glx \
+    libgl1-mesa-dri \
     # libcurl4-openssl-dev \
     # curl \
     vim \
